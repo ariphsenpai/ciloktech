@@ -535,6 +535,7 @@ const revealObs = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); revealObs.unobserve(en.target); } });
 }, { threshold: 0.06 });
 document.querySelectorAll('.reveal').forEach(x => revealObs.observe(x));
+window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 </script>
 </body>
 </html>
