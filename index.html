@@ -17,13 +17,15 @@
   --neon4: #ffaa00;
   --text: #e6e8f0;
   --muted: #7a82a0;
+  --radius: 18px;
+  --radius-sm: 12px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:
-    radial-gradient(800px 600px at 10% 0%, rgba(0,255,200,0.12), transparent 55%),
+    radial-gradient(800px 600px at 10% 0%, rgba(0,255,200,0.10), transparent 55%),
     radial-gradient(900px 700px at 110% 10%, rgba(0,168,255,0.10), transparent 55%),
     linear-gradient(180deg, #03050a, #060a12 40%, #03050a);
   color: var(--text);
@@ -34,7 +36,6 @@ a { color: var(--neon3); text-decoration: none; }
 a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-/* scanline + grid overlay */
 body::before {
   content: '';
   position: fixed;
@@ -58,7 +59,6 @@ body::after {
   opacity: 0.4;
 }
 
-/* top commander bar */
 .topbar {
   position: fixed;
   top: 14px; left: 20px; right: 20px;
@@ -99,14 +99,13 @@ body::after {
   font-weight: 500;
   transition: all .3s;
 }
-.topnav a:hover, .topnav a.active { color: #fff; background: rgba(255,255,255,0.08); text-decoration: none; box-shadow: 0 0 0 1px rgba(0,255,200,0.25); }
+.topnav a:hover { color: #fff; background: rgba(255,255,255,0.08); text-decoration: none; box-shadow: 0 0 0 1px rgba(0,255,200,0.25); }
 .nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
 
-/* hero */
 .hero {
   position: relative;
   z-index: 1;
-  padding: 140px 0 90px;
+  padding: 140px 0 80px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 30px;
@@ -139,6 +138,7 @@ body::after {
   text-shadow: 2px 2px 0 var(--neon2), -1px -1px 0 var(--neon1);
   letter-spacing: -0.7px;
 }
+.accent { color: var(--neon1); }
 .hero-desc {
   margin-top: 16px;
   color: #c5c8ce;
@@ -168,12 +168,7 @@ body::after {
 }
 .pill.primary { background: linear-gradient(135deg, var(--neon1), #00d4aa); color: #001914; box-shadow: 0 10px 30px rgba(0,255,200,0.3); }
 .pill.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,255,200,0.45); text-decoration: none; }
-.pill.ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.25); }
-.pill.ghost:hover { border-color: #fff; transform: translateY(-2px); text-decoration: none; box-shadow: 0 0 24px rgba(0,255,200,0.15); }
-.pill.direct { background: var(--neon2); color: #fff; box-shadow: 0 10px 30px rgba(255,0,170,0.3); }
-.pill.direct:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,0,170,0.45); text-decoration: none; }
 
-/* Terminal card */
 .terminal-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -195,27 +190,6 @@ body::after {
 .terminal-lines .warn { color: var(--neon4); }
 .terminal-lines .err { color: var(--neon2); }
 
-/* Dock */
-.dock {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
-  margin: 10px 0;
-}
-.dock-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 10px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: #b8bcc4;
-  transition: all .3s;
-}
-.dock-item:hover { transform: translateY(-3px); border-color: rgba(0,255,200,0.4); color: #fff; box-shadow: 0 0 24px rgba(0,255,200,0.15); }
-.dock-icon { font-size: 1.5rem; margin-bottom: 6px; display: block; }
-
-/* Sections */
 .section { padding: 60px 0; position: relative; z-index: 1; }
 .section-badge {
   display: inline-block;
@@ -239,7 +213,6 @@ body::after {
 }
 .section-desc { margin-top: 10px; color: var(--muted); font-size: 0.96rem; max-width: 640px; }
 
-/* Skills grid */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -268,9 +241,9 @@ body::after {
 .skill-card:hover { transform: translateY(-4px); border-color: rgba(0,255,200,0.4); box-shadow: 0 0 30px rgba(0,255,200,0.15); }
 .skill-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; }
 .skill-card p { color: #b8bcc4; font-size: 0.9rem; }
-.skill-card .meta { color: var(--muted); font-size: 0.78rem; margin-top: 10px; }
+.skill-card .meta { color: var(--muted); font-size: 0.78rem; margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+.mini-pill { padding: 5px 9px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: #c9ccd4; font-size: 0.72rem; }
 
-/* Showcase */
 .showcase-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 22px 0 18px; }
 .tab {
   padding: 12px 20px;
@@ -290,6 +263,7 @@ body::after {
 .showcase-panel { display: none; animation: fade .35s ease; }
 .showcase-panel.active { display: block; }
 @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
 .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
 .project-card {
   background: var(--surface);
@@ -316,7 +290,6 @@ body::after {
 .tech { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
 .tech-tag { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.75rem; color: #c9ccd4; background: var(--surface-2); }
 
-/* Pricing */
 .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
 .price-card {
   background: var(--surface);
@@ -329,7 +302,6 @@ body::after {
 .price-card .n { color: #b8bcc4; font-size: 0.9rem; margin-bottom: 4px; }
 .price-card .p { color: var(--neon1); font-weight: 900; font-size: 1.05rem; text-shadow: 0 0 8px rgba(0,255,200,0.35); }
 
-/* Contact */
 .contact-wrap { margin-top: 18px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .contact-icon {
   display: inline-flex;
@@ -349,27 +321,13 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
 .reveal { opacity: 0; transform: translateY(14px); transition: all .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* hex bg deco */
-.hex-deco {
-  position: absolute;
-  width: 220px; height: 220px;
-  border: 1px solid rgba(0,255,200,0.12);
-  transform: rotate(45deg);
-  border-radius: 20px;
-  pointer-events: none;
-  z-index: 0;
-  box-shadow: 0 0 30px rgba(0,255,200,0.08);
-}
-
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding-top: 110px; }
-  .dock { grid-template-columns: repeat(3, 1fr); }
   .topnav { display: none; }
   .nav-toggle { display: block; }
   .topnav.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 16px; right: 16px; padding: 12px; background: rgba(10,13,22,0.95); border: 1px solid var(--border); border-radius: 16px; }
 }
 @media (max-width: 520px) {
-  .dock { grid-template-columns: repeat(2, 1fr); }
   .price-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -389,7 +347,7 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
 <section class="hero container" id="beranda">
   <div>
     <div class="hero-badge">⬢ FULL-SPECTRUM DIGITAL OPERATOR</div>
-    <h1 class="hero-title">Bikin sistem yang <span style="color:var(--neon1)">jalan sendiri</span>, tanpa ribet kamu urus</h1>
+    <h1 class="hero-title">Bikin sistem yang <span class="accent">jalan sendiri</span>, tanpa ribet kamu urus</h1>
     <p class="hero-desc">Website, bot, dashboard, scraping, automation, AI, crypto tools. Gue handle engineering nya — kamu tinggal dapetin hasilnya.</p>
     <div class="hero-tags">
       <span class="tag">Web Dev</span>
@@ -422,23 +380,6 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
   </div>
 </section>
 
-<div class="container">
-  <div class="dock">
-    <div class="dock-item"><span class="dock-icon">🌐</span>Website</div>
-    <div class="dock-item"><span class="dock-icon">🤖</span>Bot</div>
-    <div class="dock-item"><span class="dock-icon">📊</span>Dashboard</div>
-    <div class="dock-item"><span class="dock-icon">🕷</span>Scraping</div>
-    <div class="dock-item"><span class="dock-icon">⚡</span>Automation</div>
-    <div class="dock-item"><span class="dock-icon">🧠</span>AI/LLM</div>
-    <div class="dock-item"><span class="dock-icon">⛓</span>Crypto</div>
-    <div class="dock-item"><span class="dock-icon">🧩</span>Playwright</div>
-    <div class="dock-item"><span class="dock-icon">🔧</span>DevOps</div>
-    <div class="dock-item"><span class="dock-icon">📦</span>Deploy</div>
-    <div class="dock-item"><span class="dock-icon">🗄</span>Database</div>
-    <div class="dock-item"><span class="dock-icon">🛡</span>Security Research</div>
-  </div>
-</div>
-
 <section class="section" id="layanan">
   <div class="container">
     <div class="section-header">
@@ -447,37 +388,89 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
       <p class="section-desc">Pilih sesuai kebutuhan, gue urus implementasi sampai jalan.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p><div class="meta">Statis, dinamis, deploy VPS</div></div>
-      <div class="skill-card"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p><div class="meta">Python, Node.js, API</div></div>
-      <div class="skill-card"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p><div class="meta">Realtime, logging, alert</div></div>
-      <div class="skill-card"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p><div class="meta">Tracking, watch, automation</div></div>
-      <div class="skill-card"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p><div class="meta">Cron, error recovery</div></div>
-      <div class="skill-card"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p><div class="meta">Private-first, no data leak</div></div>
-      <div class="skill-card"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p><div class="meta">Multi-chain, secure</div></div>
-      <div class="skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p><div class="meta">Desktop/headless, reliable</div></div>
-      <div class="skill-card"><h3>🔧 DevOps</h3><p>VPS setup, nginx, systemd, CI/CD, migration kits.</p><div class="meta">Linux, Docker, deploy</div></div>
-      <div class="skill-card"><h3>📦 Deploy & Hosting</h3><p>GitHub Pages, Vercel, Netlify, manual VPS.</p><div class="meta">Publish fast</div></div>
-      <div class="skill-card"><h3>🗄 Database & Data</h3><p>SQLite, PostgreSQL, JSON stores, migration.</p><div class="meta">Backup, schema, migrate</div></div>
-      <div class="skill-card"><h3>🛡 Security Research</h3><p>Penetration testing, auth analysis, enumerations (authorized only).</p><div class="meta">Ethical, scoped, authorized</div></div>
-      <div class="skill-card"><h3>📱 Mobile / Responsive</h3><p>Mobile-first layout, PWA-ready, touch-friendly UI.</p><div class="meta">Cross-device, fast</div></div>
-      <div class="skill-card"><h3>🎨 UI/UX Design</h3><p>Dark theme, cyberpunk, glassmorphism, design systems.</p><div class="meta">Aesthetic, accessibility</div></div>
-      <div class="skill-card"><h3>🔌 API Integration</h3><p>REST/GraphQL, webhooks, OAuth, third-party toolchain.</p><div class="meta">Reliable, secure</div></div>
-      <div class="skill-card"><h3>🔄 System Migration</h3><p>Migrasi repo, konfigurasi, data antar VPS/host.</p><div class="meta">Minimal downtime</div></div>
+      <div class="skill-card"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p><div class="meta"><span class="mini-pill">Statis</span><span class="mini-pill">Dinamis</span><span class="mini-pill">Deploy VPS</span></div></div>
+      <div class="skill-card"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p><div class="meta"><span class="mini-pill">Python</span><span class="mini-pill">Node.js</span></div></div>
+      <div class="skill-card"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p><div class="meta"><span class="mini-pill">Realtime</span><span class="mini-pill">Alerts</span></div></div>
+      <div class="skill-card"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p><div class="meta"><span class="mini-pill">Tracking</span><span class="mini-pill">Automation</span></div></div>
+      <div class="skill-card"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p><div class="meta"><span class="mini-pill">Cron</span><span class="mini-pill">Playwright</span></div></div>
+      <div class="skill-card"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p><div class="meta"><span class="mini-pill">Private-first</span><span class="mini-pill">RAG</span></div></div>
+      <div class="skill-card"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p><div class="meta"><span class="mini-pill">Multi-chain</span><span class="mini-pill">Secure</span></div></div>
+      <div class="skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p><div class="meta"><span class="mini-pill">Desktop</span><span class="mini-pill">Headless</span></div></div>
+      <div class="skill-card"><h3>🔧 DevOps</h3><p>VPS setup, nginx, systemd, CI/CD, migration kits.</p><div class="meta"><span class="mini-pill">Linux</span><span class="mini-pill">Docker</span></div></div>
+      <div class="skill-card"><h3>📦 Deploy & Hosting</h3><p>GitHub Pages, Vercel, Netlify, manual VPS.</p><div class="meta"><span class="mini-pill">Pages</span><span class="mini-pill">Vercel</span></div></div>
+      <div class="skill-card"><h3>🗄 Database & Data</h3><p>SQLite, PostgreSQL, JSON stores, migration.</p><div class="meta"><span class="mini-pill">Backup</span><span class="mini-pill">Schema</span></div></div>
+      <div class="skill-card"><h3>📱 Mobile / Responsive</h3><p>Mobile-first layout, PWA-ready, touch-friendly UI.</p><div class="meta"><span class="mini-pill">Cross-device</span></div></div>
+      <div class="skill-card"><h3>🎨 UI/UX Design</h3><p>Dark theme, cyberpunk, glassmorphism, design systems.</p><div class="meta"><span class="mini-pill">Aesthetic</span><span class="mini-pill">Design</span></div></div>
+      <div class="skill-card"><h3>🔌 API Integration</h3><p>REST/GraphQL, webhooks, OAuth, third-party toolchain.</p><div class="meta"><span class="mini-pill">REST</span><span class="mini-pill">OAuth</span></div></div>
+      <div class="skill-card"><h3>🔄 System Migration</h3><p>Migrasi repo, konfigurasi, data antar VPS/host.</p><div class="meta"><span class="mini-pill">Minimal downtime</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="section" id="angka">
+<section class="section" id="skillset" style="background:linear-gradient(180deg, transparent, rgba(0,255,200,0.04), transparent);">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">// Data Singkat</span>
-      <h2 class="section-title">Ringkas Projek</h2>
-      <p class="section-desc">Fokus ke hasil, bukan cuma cerita.</p>
+      <span class="section-badge">// Arsenal</span>
+      <h2 class="section-title">Contoh Kemampuan</h2>
+      <p class="section-desc">Kategori dan use-case yang bisa gue kerjakan.</p>
     </div>
-    <div class="skills-grid">
-      <div class="skill-card"><h3>📦 Repo Aktif</h3><p>Web, bot, scanner, automation, dan operasi sehari-hari.</p><div class="meta">Maintained</div></div>
-      <div class="skill-card"><h3>🖥 Deployment Siap</h3><p>VPS, Vercel, Pages, Netlify. Fast release dalam menit.</p><div class="meta">CI/CD friendly</div></div>
-      <div class="skill-card"><h3>🔔 Notifikasi</h3><p>Telegram-first updates, realtime status, minimal lag.</p><div class="meta">Low noise</div></div>
+    <div class="showcase-tabs">
+      <button class="tab active" data-tab="tab-all">SEMUA</button>
+      <button class="tab" data-tab="tab-web">WEB</button>
+      <button class="tab" data-tab="tab-bot">BOT</button>
+      <button class="tab" data-tab="tab-data">DATA</button>
+      <button class="tab" data-tab="tab-ai">AI</button>
+      <button class="tab" data-tab="tab-crypto">CRYPTO</button>
+      <button class="tab" data-tab="tab-infra">INFRA</button>
+    </div>
+
+    <div id="tab-all" class="showcase-panel active">
+      <div class="project-grid">
+        <div class="project-card"><h4>Website / Landing</h4><p>Branding site responsif.</p><div class="use">Use-case: personal, brand, UMKM, SaaS.</div><div class="tech"><span class="tech-tag">HTML</span><span class="tech-tag">React</span><span class="tech-tag">Next.js</span></div></div>
+        <div class="project-card"><h4>Telegram Bot</h4><p>Alert, automation, scanner.</p><div class="use">Use-case: support, tracking.</div><div class="tech"><span class="tech-tag">Python</span><span class="tech-tag">Node.js</span></div></div>
+        <div class="project-card"><h4>Dashboard Monitoring</h4><p>Control center realtime VPS/server.</p><div class="use">Use-case: server health, metrics, logs.</div><div class="tech"><span class="tech-tag">Dashboard</span><span class="tech-tag">Live API</span></div></div>
+        <div class="project-card"><h4>Scraping & Report</h4><p>Ambil data dan olah report.</p><div class="use">Use-case: price tracking, watch.</div><div class="tech"><span class="tech-tag">Scraping</span><span class="tech-tag">API</span></div></div>
+        <div class="project-card"><h4>Automation</h4><p>Bot massal, batch job, cron pipeline.</p><div class="use">Use-case: scheduler, workflows.</div><div class="tech"><span class="tech-tag">Cron</span><span class="tech-tag">Playwright</span></div></div>
+        <div class="project-card"><h4>AI / Workflow</h4><p>Agent, RAG, workflow LLM.</p><div class="use">Use-case: assistant, summarizer.</div><div class="tech"><span class="tech-tag">AI</span><span class="tech-tag">LLM</span></div></div>
+        <div class="project-card"><h4>Crypto Tools</h4><p>Wallet, scanner, DeFi helper.</p><div class="use">Use-case: airdrop, monitoring.</div><div class="tech"><span class="tech-tag">Crypto</span><span class="tech-tag">Web3</span></div></div>
+        <div class="project-card"><h4>Browser Automation</h4><p>Headless browser, session handling.</p><div class="use">Use-case: login automation, QA.</div><div class="tech"><span class="tech-tag">Playwright</span><span class="tech-tag">Automation</span></div></div>
+        <div class="project-card"><h4>Deploy & Hosting</h4><p>Publish site ke Pages, Vercel, atau VPS.</p><div class="use">Use-case: fast go-live.</div><div class="tech"><span class="tech-tag">CI/CD</span><span class="tech-tag">Hosting</span></div></div>
+        <div class="project-card"><h4>Security Research</h4><p>Auth analysis, recon, enumeration pada scope authorized.</p><div class="use">Use-case: penetration test scoped.</div><div class="tech"><span class="tech-tag">Recon</span><span class="tech-tag">Auth</span></div></div>
+      </div>
+    </div>
+
+    <div id="tab-web" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>Website / Landing</h4><p>Branding site responsif.</p><div class="use">Use-case: brand, produk.</div><div class="tech"><span class="tech-tag">HTML</span><span class="tech-tag">React</span></div></div>
+        <div class="project-card"><h4>Admin Panel</h4><p>Manajemen data + operasi.</p><div class="use">Use-case: internal, analytics.</div><div class="tech"><span class="tech-tag">Next.js</span><span class="tech-tag">Node</span></div></div>
+      </div>
+    </div>
+    <div id="tab-bot" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>Telegram Bot</h4><p>Alert, automation, scanner.</p><div class="use">Use-case: support, tracking.</div><div class="tech"><span class="tech-tag">Python</span><span class="tech-tag">Telegram</span></div></div>
+        <div class="project-card"><h4>Bot Massal</h4><p>Batch job + scheduler.</p><div class="use">Use-case: cron, bulk action.</div><div class="tech"><span class="tech-tag">Automation</span></div></div>
+      </div>
+    </div>
+    <div id="tab-data" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>Scraping & Report</h4><p>Ambil data dan olah report.</p><div class="use">Use-case: tracking, watch.</div><div class="tech"><span class="tech-tag">Scraping</span><span class="tech-tag">API</span></div></div>
+      </div>
+    </div>
+    <div id="tab-ai" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>AI Agent / Workflow</h4><p>Agent, RAG, workflow.</p><div class="use">Use-case: assistant, summarizer.</div><div class="tech"><span class="tech-tag">AI</span><span class="tech-tag">LLM</span></div></div>
+      </div>
+    </div>
+    <div id="tab-crypto" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>Crypto Tools</h4><p>Wallet, scanner, DeFi helper.</p><div class="use">Use-case: airdrop, monitoring.</div><div class="tech"><span class="tech-tag">Crypto</span><span class="tech-tag">Web3</span></div></div>
+      </div>
+    </div>
+    <div id="tab-infra" class="showcase-panel">
+      <div class="project-grid">
+        <div class="project-card"><h4>Deploy & Hosting</h4><p>Publish site fast.</p><div class="use">Use-case: fast go-live.</div><div class="tech"><span class="tech-tag">CI/CD</span></div></div>
+        <div class="project-card"><h4>Security Research</h4><p>Authorized pentest + recon.</p><div class="use">Use-case: scoped engagement.</div><div class="tech"><span class="tech-tag">Recon</span></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -515,17 +508,11 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.03-1.383L2.05 22l1.339-3.9A9.93 9.93 0 012.005 12C2.005 6.477 6.477 2.005 12 2.005c2.093 0 4.078.552 5.85 1.562a9.87 9.87 0 013.144 5.03c-.15 2.58-1.632 4.84-3.477 6.348L12 22z" fill="#25D366"/></svg>
       </a>
     </div>
-    <form id="contactForm" style="max-width:760px;margin:18px auto 0; display:grid; gap:12px;">
-      <input id="nameInput" placeholder="Nama kamu" required style="padding:14px 16px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--text); outline:none; font-family:inherit;">
-      <input id="userInput" placeholder="Username Telegram kamu" required style="padding:14px 16px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--text); outline:none; font-family:inherit;">
-      <textarea rows="5" id="msgInput" placeholder="Ceritain kebutuhan project..." required style="padding:14px 16px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--text); outline:none; font-family:inherit;"></textarea>
-      <button type="submit" class="pill primary" style="width:100%; justify-content:center;">Kirim ke Telegram</button>
-    </form>
   </div>
 </section>
 
 <footer>
-  <div class="container">© CILOK TECH — Digital Operator • <a href="https://t.me/redacted">@ciloktech</a></div>
+  <div class="container">© CILOK TECH — Digital Operator</div>
 </footer>
 
 <script>
@@ -548,16 +535,6 @@ const revealObs = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); revealObs.unobserve(en.target); } });
 }, { threshold: 0.06 });
 document.querySelectorAll('.reveal').forEach(x => revealObs.observe(x));
-
-document.getElementById('contactForm')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = document.getElementById('nameInput').value.trim();
-  const user = document.getElementById('userInput').value.trim();
-  const msg = document.getElementById('msgInput').value.trim();
-  if (!name || !user || !msg) return;
-  const text = encodeURIComponent(`Halo Cilok Tech\nNama: ${name}\nTelegram: ${user}\nPesan: ${msg}`);
-  window.open(`https://t.me/redacted?text=${text}`, '_blank');
-});
 </script>
 </body>
 </html>
