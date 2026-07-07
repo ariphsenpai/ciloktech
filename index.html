@@ -28,13 +28,48 @@ html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   font-family: 'Share Tech Mono', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:
-    radial-gradient(800px 600px at 10% 0%, rgba(0,255,200,0.10), transparent 55%),
-    radial-gradient(900px 700px at 110% 10%, rgba(0,168,255,0.10), transparent 55%),
-    linear-gradient(180deg, #03050a, #060a12 40%, #03050a);
+    radial-gradient(900px 700px at 50% -10%, rgba(0,255,200,0.18), transparent 55%),
+    radial-gradient(700px 600px at 110% 20%, rgba(255,0,170,0.14), transparent 55%),
+    radial-gradient(700px 600px at -10% 70%, rgba(0,168,255,0.13), transparent 55%),
+    linear-gradient(180deg, #03050a 0%, #070b16 38%, #03050a 100%);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.55;
   overflow-x: hidden;
 }
+/* cyberpunk perspective grid floor */
+body::before {
+  content: '';
+  position: fixed;
+  left: -50%; right: -50%; bottom: -30%;
+  height: 80vh;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,255,200,0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,0.28) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: perspective(420px) rotateX(70deg);
+  transform-origin: bottom center;
+  -webkit-mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.25) 45%, transparent 80%);
+          mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.25) 45%, transparent 80%);
+  opacity: 0.6;
+  animation: gridFloor 7s linear infinite;
+}
+@keyframes gridFloor { from { background-position: 0 0; } to { background-position: 0 48px; } }
+/* neon scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px);
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  animation: scanFlicker 5s steps(60) infinite;
+}
+@keyframes scanFlicker { 0%,100% { opacity:.34 } 48% { opacity:.42 } 50% { opacity:.3 } 52% { opacity:.44 } }
 a { color: var(--neon3); text-decoration: none; }
 a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -52,22 +87,6 @@ body::before {
   animation: scanFlicker 5s steps(60) infinite;
 }
 @keyframes scanFlicker { 0%,100% { opacity:.32 } 48% { opacity:.38 } 50% { opacity:.30 } 52% { opacity:.4 } }
-
-/* moving neon grid */
-body::after {
-  content: '';
-  position: fixed;
-  inset: -50%;
-  background-image:
-    linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.45;
-  animation: gridMove 18s linear infinite;
-}
-@keyframes gridMove { from { transform: translate(0,0); } to { transform: translate(60px,60px); } }
 
 /* ===== Holographic noise grain ===== */
 .grain {
@@ -582,7 +601,7 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
     <div class="section-header">
       <span class="section-badge">// Kontak</span>
       <h2 class="section-title holo">Hubungi Cilok Tech</h2>
-      <p class="section-desc">Klik icon untuk langsung buka chat di Telegram atau WhatsApp.</p>
+      <p class="section-desc">Klik icon untuk langsung buka chat di Telegram.</p>
     </div>
     <div class="contact-wrap">
       <a class="contact-icon" href="https://t.me/ciloktech" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram">
