@@ -389,7 +389,20 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 }
 .skill-card:hover::after { opacity: 1; }
 .skill-card:hover { transform: translateY(-4px); border-color: rgba(0,255,200,0.4); box-shadow: 0 0 30px rgba(0,255,200,0.15); background-position: -60% 0%, 0 0; }
-.skill-card:active { transform: translateY(-2px) scale(0.985); border-color: rgba(0,255,200,0.55); box-shadow: 0 0 40px rgba(0,255,200,0.25), inset 0 0 18px rgba(0,255,200,0.08); background-position: -60% 0%, 0 0; }
+.skill-card:active,
+.skill-card.touched {
+  transform: translateY(-4px) scale(0.99);
+  border-color: rgba(0,255,200,0.65);
+  box-shadow: 0 0 48px rgba(0,255,200,0.32), inset 0 0 22px rgba(0,255,200,0.10);
+  background-position: -60% 0%, 0 0;
+}
+.skill-card:active::after,
+.skill-card.touched::after { opacity: 1; }
+.skill-card:active::before,
+.skill-card.touched::before {
+  left: 100%;
+  animation: sweepNeon .6s ease-out;
+}
 .skill-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; letter-spacing: .3px; }
 .skill-card p { color: #c8cbd4; font-size: 0.9rem; line-height: 1.55; }
 
@@ -417,6 +430,7 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 }
 .skill-marquee .track span::before { content: '› '; color: var(--neon2); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes sweepNeon { from { left: -100%; } to { left: 100%; } }
 
 /* ===== Price ===== */
 .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
@@ -662,6 +676,18 @@ function forceTop() {
 }
 window.addEventListener('DOMContentLoaded', forceTop);
 window.addEventListener('load', forceTop);
+
+/* touch feedback untuk skill-card di mobile — toggle class .touched biar efek neon konsisten */
+(function(){
+  var cards = document.querySelectorAll('.skill-card');
+  function addTouch(e){ e.currentTarget.classList.add('touched'); }
+  function remTouch(e){ e.currentTarget.classList.remove('touched'); }
+  cards.forEach(function(c){
+    c.addEventListener('touchstart', addTouch, {passive:true});
+    c.addEventListener('touchend', remTouch, {passive:true});
+    c.addEventListener('touchcancel', remTouch, {passive:true});
+  });
+})();
 </script>
 </body>
 </html>
