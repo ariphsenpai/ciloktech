@@ -385,12 +385,20 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(0,255,200,0.08), transparent 60%);
+  border-radius: var(--radius);
+  padding: 1px;
+  background: conic-gradient(from 0deg, transparent 0%, var(--neon1) 12%, var(--neon2) 24%, transparent 38%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
   opacity: 0;
   transition: opacity .3s;
   z-index: 2;
+  animation: borderSpin 3s linear infinite;
 }
-.skill-card:hover::after { opacity: 1; }
+.skill-card:hover::after,
+.skill-card:active::after,
+.skill-card.touched::after { opacity: 1; }
 .skill-card:hover { transform: translateY(-4px); border-color: rgba(0,255,200,0.4); box-shadow: 0 0 30px rgba(0,255,200,0.15); background-position: -60% 0%, 0 0; }
 .skill-card:active,
 .skill-card.touched {
@@ -492,7 +500,15 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
 }
 @media (max-width: 520px) {
   .price-grid { grid-template-columns: 1fr; }
+  /* matiin animasi fixed-layer berat biar Android gak lag */
+  body::before,
+  body::after,
+  .batik-bg { animation: none !important; }
+  .flying-robot,
+  .flying-robot2,
+  .robot-layanan { animation-duration: 20s !important; }
 }
+@keyframes borderSpin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
