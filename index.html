@@ -334,12 +334,13 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 
 /* ===== Scroll reveal animations — appear from left ===== */
 /* progressive enhancement: opacity:0 cuma aktif kalau body punya class js-reveal
-   (ditambahin JS). Kalau JS gagal, section tetap kelihatan. */
+   (ditambahin JS). Kalau JS gagal, section tetap kelihatan.
+   NOTE: jangan pakai will-change di banyak elemen — bikin GPU layer meledak
+   di HP low-end (RAM 4) -> layar blank + scroll freeze. */
 .js-reveal .reveal {
   opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 .js-reveal .reveal.visible {
   opacity: 1;
@@ -550,6 +551,22 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
   50%  { opacity: 0.5; }
   100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+/* ===== PERFORMANCE GUARD: matiin animasi berat biar HP low-end gak blank/lag ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+/* HP lemah (max-width + coarse pointer) -> matiin animasi background berat */
+@media (max-width: 768px) and (pointer: coarse) {
+  .flying-robot, .flying-robot2, .skill-marquee .track, .batik-bg, .grid-floor, .scanline {
+    animation: none !important;
+  }
+  .flying-robot, .flying-robot2 { display: none !important; }
 }
 </style>
 </head>
@@ -823,37 +840,35 @@ setInterval(() => {
 })();
 
 
-/* scroll reveal — per-grid stagger + replay saat scroll balik */
+/* scroll reveal — per-grid stagger + sekali lewat (gak reset biar gak blank) */
 (function(){
   var reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
   document.body.classList.add('js-reveal');
 
-  // set per-grid stagger: tiap child dlm grid dapet --d dari urutannya
-  var groups = ['.skills-grid', '.price-grid', '.contact-wrap', '.section-header'];
-  groups.forEach(function(sel){
-    var grids = document.querySelectorAll(sel);
-    grids.forEach(function(grid){
-      var kids = grid.querySelectorAll('.reveal');
-      kids.forEach(function(k, i){ k.style.setProperty('--d', i % 6); });
-    });
+  // set per-grid stagger:
+  // - section-header = delay 0 (muncul pertama)
+  // - tiap card dlm grid = delay 1,2,3... (muncul setelah header, berurutan)
+  document.querySelectorAll('.section-header.reveal').forEach(function(h){
+    h.style.setProperty('--d', 0);
   });
-  // section-header sendiri juga stagger (badge->title->desc)
-  document.querySelectorAll('.section-header.reveal').forEach(function(h, i){
-    h.style.setProperty('--d', i % 6);
+  ['.skills-grid', '.price-grid', '.contact-wrap'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(grid){
+      var kids = grid.querySelectorAll('.reveal');
+      kids.forEach(function(k, i){ k.style.setProperty('--d', i + 1); });
+    });
   });
 
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
+        // HANYA tambah visible, jangan hapus -> scroll up gak blank
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-        } else {
-          // reset biar efek muncul lg pas scroll balik
-          entry.target.classList.remove('visible');
+          io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -12% 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
     reveals.forEach(function(el){ io.observe(el); });
   } else {
     reveals.forEach(function(el){ el.classList.add('visible'); });
@@ -886,7 +901,7 @@ window.addEventListener('load', forceTop);
   var lastSpawn = 0;
   function spawn(x, y){
     var now = Date.now();
-    if (now - lastSpawn < 16) return; // throttle ~60fps biar gak numpuk
+    if (now - lastSpawn < 40) return; // throttle 40ms (~25fps) biar gak numpuk di HP lemah
     lastSpawn = now;
     var el = document.createElement('div');
     el.className = 'touch-neon';
