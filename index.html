@@ -24,7 +24,7 @@
   --radius-sm: 12px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-overflow-scrolling: touch; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: transparent; }
 body {
   font-family: 'Share Tech Mono', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:
@@ -224,31 +224,7 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 }
 .accent { color: var(--neon1); }
 
-/* ===== FLIP WORD (3D rotateX cycle) ===== */
-.flip-wrap {
-  display: inline-block;
-  vertical-align: baseline;
-  height: 1.15em;
-  overflow: hidden;
-  perspective: 400px;
-}
-.flip-word {
-  display: inline-block;
-  color: var(--neon1);
-  text-shadow: 0 0 14px rgba(0,255,200,0.6);
-  transform-origin: 50% 50%;
-  animation: flipCycle 3.2s cubic-bezier(.6,.05,.3,1) infinite;
-}
-@keyframes flipCycle {
-  0%   { transform: rotateX(0deg);   opacity: 1; }
-  18%  { transform: rotateX(0deg);   opacity: 1; }
-  28%  { transform: rotateX(90deg);  opacity: 0; }
-  30%  { transform: rotateX(-90deg); opacity: 0; }
-  40%  { transform: rotateX(0deg);   opacity: 1; }
-  88%  { transform: rotateX(0deg);   opacity: 1; }
-  98%  { transform: rotateX(90deg);  opacity: 0; }
-  100% { transform: rotateX(90deg);  opacity: 0; }
-}
+/* ===== Hero desc ===== */
 .hero-desc {
   margin-top: 18px;
   color: #c5c8ce;
@@ -260,44 +236,47 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 /* ===== Flying robot (hero) — terbang kanan-kiri + zoom in/out ===== */
 .flying-robot {
   position: absolute;
-  top: 4%; right: 3%;
+  top: 2%; right: 2%;
   z-index: 6;
   pointer-events: none;
-  filter: drop-shadow(0 0 14px rgba(0,255,200,0.45));
+  filter: drop-shadow(0 0 20px rgba(0,255,200,0.5)) drop-shadow(0 0 40px rgba(0,255,200,0.15));
   animation: robotFly 12s ease-in-out infinite;
   will-change: transform;
 }
 @keyframes robotFly {
-  0%   { transform: translate(0,0) scale(1) rotate(-6deg); }
-  20%  { transform: translate(-12vw,-30px) scale(1.18) rotate(5deg); }
-  40%  { transform: translate(-22vw,10px) scale(0.82) rotate(-4deg); }
-  60%  { transform: translate(-8vw,40px) scale(1.1) rotate(6deg); }
-  80%  { transform: translate(8vw,-20px) scale(0.92) rotate(-5deg); }
-  100% { transform: translate(0,0) scale(1) rotate(-6deg); }
+  0%   { transform: translate(0,0) scale(1) rotate(-4deg); }
+  20%  { transform: translate(-12vw,-30px) scale(1.18) rotate(6deg); }
+  40%  { transform: translate(-22vw,10px) scale(0.82) rotate(-5deg); }
+  60%  { transform: translate(-8vw,40px) scale(1.1) rotate(4deg); }
+  80%  { transform: translate(8vw,-20px) scale(0.92) rotate(-6deg); }
+  100% { transform: translate(0,0) scale(1) rotate(-4deg); }
 }
-.flying-robot .flame { animation: flameFlicker .22s steps(2) infinite; transform-origin: 60px 118px; }
-@keyframes flameFlicker { 0%,100% { opacity:.95; transform: scaleY(1); } 50% { opacity:.45; transform: scaleY(.65); } }
+.flying-robot .flame1 { animation: flameFlicker .18s steps(2) infinite; transform-origin: 50% 100%; }
+.flying-robot .flame2 { animation: flameFlicker .18s steps(2) infinite 0.09s; transform-origin: 50% 100%; }
 .flying-robot .eye { animation: eyePulse 2.4s ease-in-out infinite; }
 @keyframes eyePulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
 
 /* ===== Flying robot 2 (hero kiri) — mirror animation ===== */
 .flying-robot2 {
   position: absolute;
-  top: 18%; left: 3%;
+  top: 16%; left: 2%;
   z-index: 6;
   pointer-events: none;
-  filter: drop-shadow(0 0 14px rgba(255,0,170,0.45));
+  filter: drop-shadow(0 0 20px rgba(255,0,170,0.5)) drop-shadow(0 0 40px rgba(255,0,170,0.15));
   animation: robotFly2 14s ease-in-out infinite;
   will-change: transform;
 }
 @keyframes robotFly2 {
-  0%   { transform: translate(0,0) scale(1) rotate(6deg); }
-  20%  { transform: translate(12vw,-24px) scale(0.85) rotate(-5deg); }
-  40%  { transform: translate(22vw,14px) scale(1.15) rotate(4deg); }
-  60%  { transform: translate(8vw,38px) scale(0.9) rotate(-6deg); }
-  80%  { transform: translate(-8vw,-18px) scale(1.08) rotate(5deg); }
-  100% { transform: translate(0,0) scale(1) rotate(6deg); }
+  0%   { transform: translate(0,0) scale(1) rotate(4deg); }
+  20%  { transform: translate(12vw,-24px) scale(0.85) rotate(-6deg); }
+  40%  { transform: translate(22vw,14px) scale(1.15) rotate(5deg); }
+  60%  { transform: translate(8vw,38px) scale(0.9) rotate(-4deg); }
+  80%  { transform: translate(-8vw,-18px) scale(1.08) rotate(6deg); }
+  100% { transform: translate(0,0) scale(1) rotate(4deg); }
 }
+.flying-robot2 .flame1 { animation: flameFlicker .18s steps(2) infinite; transform-origin: 50% 100%; }
+.flying-robot2 .flame2 { animation: flameFlicker .18s steps(2) infinite 0.09s; transform-origin: 50% 100%; }
+.flying-robot2 .eye { animation: eyePulse 2.4s ease-in-out infinite; }
 
 /* ===== Robot di atas section Layanan ===== */
 .robot-layanan {
@@ -528,57 +507,99 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
 </div>
 
 <section class="hero container" id="beranda">
-  <div class="flying-robot2" aria-hidden="true">
-    <svg viewBox="0 0 120 150" width="78" height="98">
-      <path class="flame" d="M48 120 q12 30 24 0 q-12 -10 -24 0z" fill="#ff00aa"/>
-      <path class="flame" d="M52 120 q8 20 16 0 q-8 -6 -16 0z" fill="#00ffc8"/>
-      <rect x="46" y="112" width="9" height="10" rx="3" fill="#111622" stroke="#ff00aa" stroke-width="1.5"/>
-      <rect x="65" y="112" width="9" height="10" rx="3" fill="#111622" stroke="#ff00aa" stroke-width="1.5"/>
-      <rect x="24" y="64" width="11" height="30" rx="5.5" fill="#111622" stroke="#ff00aa" stroke-width="1.5"/>
-      <rect x="85" y="64" width="11" height="30" rx="5.5" fill="#111622" stroke="#ff00aa" stroke-width="1.5"/>
-      <rect x="37" y="58" width="46" height="54" rx="11" fill="#111622" stroke="#ff00aa" stroke-width="2"/>
-      <rect x="46" y="72" width="28" height="20" rx="5" fill="#0a0d16" stroke="#00ffc8" stroke-width="1.2"/>
-      <circle cx="54" cy="82" r="2.4" fill="#00a8ff"/>
-      <circle cx="66" cy="82" r="2.4" fill="#ff00aa"/>
-      <rect x="41" y="20" width="38" height="36" rx="9" fill="#0a0d16" stroke="#00ffc8" stroke-width="2"/>
-      <line x1="60" y1="20" x2="60" y2="6" stroke="#00a8ff" stroke-width="2"/>
-      <circle cx="60" cy="4" r="3.2" fill="#00a8ff"/>
-      <circle class="eye" cx="52" cy="38" r="5.2" fill="#ff00aa"/>
-      <circle class="eye" cx="68" cy="38" r="5.2" fill="#ff00aa"/>
-      <rect x="52" y="48" width="16" height="3" rx="1.5" fill="#00ffc8"/>
+    <div class="flying-robot2" aria-hidden="true">
+    <svg viewBox="0 0 140 180" width="88" height="114">
+      <!-- glow aura -->
+      <circle cx="70" cy="80" r="55" fill="none" stroke="#ff00aa" stroke-width="0.4" opacity="0.3">
+        <animate attributeName="r" values="50;60;50" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <!-- jetpack thrusters (tubular) -->
+      <rect x="40" y="118" width="14" height="20" rx="4" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <rect x="86" y="118" width="14" height="20" rx="4" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <!-- THRUST FLAMES -->
+      <ellipse class="flame1" cx="47" cy="144" rx="10" ry="8" fill="#ff6600" opacity="0.9"/>
+      <ellipse class="flame2" cx="47" cy="146" rx="6" ry="5" fill="#ffdd44" opacity="0.7"/>
+      <ellipse class="flame1" cx="93" cy="144" rx="10" ry="8" fill="#ff6600" opacity="0.9"/>
+      <ellipse class="flame2" cx="93" cy="146" rx="6" ry="5" fill="#ffdd44" opacity="0.7"/>
+      <!-- legs (tube) -->
+      <rect x="44" y="108" width="12" height="14" rx="5" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <rect x="84" y="108" width="12" height="14" rx="5" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <!-- arms -->
+      <rect x="22" y="62" width="12" height="36" rx="6" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <rect x="106" y="62" width="12" height="36" rx="6" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <!-- hands -->
+      <circle cx="28" cy="102" r="5" fill="#0c0c18" stroke="#ff00aa" stroke-width="1"/>
+      <circle cx="112" cy="102" r="5" fill="#0c0c18" stroke="#ff00aa" stroke-width="1"/>
+      <!-- body (rounded hexagon-like) -->
+      <rect x="38" y="48" width="64" height="66" rx="16" fill="#0c0c18" stroke="#ff00aa" stroke-width="2"/>
+      <!-- chest screen -->
+      <rect x="50" y="58" width="40" height="24" rx="6" fill="#060612" stroke="#00ffc8" stroke-width="1"/>
+      <line x1="58" y1="65" x2="82" y2="65" stroke="#00ffc8" stroke-width="1" opacity="0.6"/>
+      <line x1="58" y1="70" x2="76" y2="70" stroke="#00a8ff" stroke-width="1" opacity="0.5"/>
+      <line x1="58" y1="75" x2="80" y2="75" stroke="#ff00aa" stroke-width="1" opacity="0.4"/>
+      <!-- neck -->
+      <rect x="60" y="38" width="20" height="14" rx="3" fill="#0c0c18" stroke="#ff00aa" stroke-width="1.5"/>
+      <!-- head (rounded) -->
+      <rect x="42" y="6" width="56" height="36" rx="12" fill="#0c0c18" stroke="#ff00aa" stroke-width="2"/>
+      <!-- visor (full-width) -->
+      <rect x="48" y="12" width="44" height="14" rx="6" fill="#060612" stroke="#00ffc8" stroke-width="1"/>
+      <circle class="eye" cx="58" cy="19" r="4" fill="#ff00aa"/>
+      <circle class="eye" cx="82" cy="19" r="4" fill="#ff00aa"/>
+      <!-- antenna -->
+      <line x1="70" y1="6" x2="70" y2="-2" stroke="#00a8ff" stroke-width="2"/>
+      <circle cx="70" cy="-3" r="3" fill="#00a8ff">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
     </svg>
   </div>
   <div class="flying-robot" aria-hidden="true">
-    <svg viewBox="0 0 120 150" width="92" height="115">
-      <!-- jetpack thruster flame -->
-      <path class="flame" d="M48 120 q12 30 24 0 q-12 -10 -24 0z" fill="#00ffc8"/>
-      <path class="flame" d="M52 120 q8 20 16 0 q-8 -6 -16 0z" fill="#ffaa00"/>
-      <!-- jetpack nozzles -->
-      <rect x="46" y="112" width="9" height="10" rx="3" fill="#111622" stroke="#00a8ff" stroke-width="1.5"/>
-      <rect x="65" y="112" width="9" height="10" rx="3" fill="#111622" stroke="#00a8ff" stroke-width="1.5"/>
+    <svg viewBox="0 0 140 180" width="100" height="130">
+      <!-- glow aura -->
+      <circle cx="70" cy="80" r="55" fill="none" stroke="#00ffc8" stroke-width="0.4" opacity="0.3">
+        <animate attributeName="r" values="50;60;50" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+      <!-- jetpack thrusters (tubular) -->
+      <rect x="40" y="118" width="14" height="20" rx="4" fill="#0c0c18" stroke="#00a8ff" stroke-width="1.5"/>
+      <rect x="86" y="118" width="14" height="20" rx="4" fill="#0c0c18" stroke="#00a8ff" stroke-width="1.5"/>
+      <!-- THRUST FLAMES -->
+      <ellipse class="flame1" cx="47" cy="144" rx="10" ry="8" fill="#00ffc8" opacity="0.9"/>
+      <ellipse class="flame2" cx="47" cy="146" rx="6" ry="5" fill="#ffaa00" opacity="0.7"/>
+      <ellipse class="flame1" cx="93" cy="144" rx="10" ry="8" fill="#00ffc8" opacity="0.9"/>
+      <ellipse class="flame2" cx="93" cy="146" rx="6" ry="5" fill="#ffaa00" opacity="0.7"/>
+      <!-- legs (tube) -->
+      <rect x="44" y="108" width="12" height="14" rx="5" fill="#0c0c18" stroke="#00ffc8" stroke-width="1.5"/>
+      <rect x="84" y="108" width="12" height="14" rx="5" fill="#0c0c18" stroke="#00ffc8" stroke-width="1.5"/>
       <!-- arms -->
-      <rect x="24" y="64" width="11" height="30" rx="5.5" fill="#111622" stroke="#00ffc8" stroke-width="1.5"/>
-      <rect x="85" y="64" width="11" height="30" rx="5.5" fill="#111622" stroke="#00ffc8" stroke-width="1.5"/>
-      <!-- body -->
-      <rect x="37" y="58" width="46" height="54" rx="11" fill="#111622" stroke="#00ffc8" stroke-width="2"/>
-      <rect x="46" y="72" width="28" height="20" rx="5" fill="#0a0d16" stroke="#00a8ff" stroke-width="1.2"/>
-      <circle cx="54" cy="82" r="2.4" fill="#ff00aa"/>
-      <circle cx="66" cy="82" r="2.4" fill="#00ffc8"/>
-      <!-- head -->
-      <rect x="41" y="20" width="38" height="36" rx="9" fill="#0a0d16" stroke="#00a8ff" stroke-width="2"/>
+      <rect x="22" y="62" width="12" height="36" rx="6" fill="#0c0c18" stroke="#00ffc8" stroke-width="1.5"/>
+      <rect x="106" y="62" width="12" height="36" rx="6" fill="#0c0c18" stroke="#00ffc8" stroke-width="1.5"/>
+      <!-- hands -->
+      <circle cx="28" cy="102" r="5" fill="#0c0c18" stroke="#00ffc8" stroke-width="1"/>
+      <circle cx="112" cy="102" r="5" fill="#0c0c18" stroke="#00ffc8" stroke-width="1"/>
+      <!-- body (rounded hexagon-like) -->
+      <rect x="38" y="48" width="64" height="66" rx="16" fill="#0c0c18" stroke="#00ffc8" stroke-width="2"/>
+      <!-- chest screen -->
+      <rect x="50" y="58" width="40" height="24" rx="6" fill="#060612" stroke="#00a8ff" stroke-width="1"/>
+      <line x1="58" y1="65" x2="82" y2="65" stroke="#00ffc8" stroke-width="1" opacity="0.6"/>
+      <line x1="58" y1="70" x2="76" y2="70" stroke="#ff00aa" stroke-width="1" opacity="0.5"/>
+      <line x1="58" y1="75" x2="80" y2="75" stroke="#00a8ff" stroke-width="1" opacity="0.4"/>
+      <!-- neck -->
+      <rect x="60" y="38" width="20" height="14" rx="3" fill="#0c0c18" stroke="#00ffc8" stroke-width="1.5"/>
+      <!-- head (rounded) -->
+      <rect x="42" y="6" width="56" height="36" rx="12" fill="#0c0c18" stroke="#00ffc8" stroke-width="2"/>
+      <!-- visor (full-width) -->
+      <rect x="48" y="12" width="44" height="14" rx="6" fill="#060612" stroke="#00a8ff" stroke-width="1"/>
+      <circle class="eye" cx="58" cy="19" r="4" fill="#00ffc8"/>
+      <circle class="eye" cx="82" cy="19" r="4" fill="#00a8ff"/>
       <!-- antenna -->
-      <line x1="60" y1="20" x2="60" y2="6" stroke="#ff00aa" stroke-width="2"/>
-      <circle cx="60" cy="4" r="3.2" fill="#ff00aa"/>
-      <!-- eyes -->
-      <circle class="eye" cx="52" cy="38" r="5.2" fill="#00ffc8"/>
-      <circle class="eye" cx="68" cy="38" r="5.2" fill="#00ffc8"/>
-      <!-- mouth -->
-      <rect x="52" y="48" width="16" height="3" rx="1.5" fill="#00a8ff"/>
+      <line x1="70" y1="6" x2="70" y2="-2" stroke="#ff00aa" stroke-width="2"/>
+      <circle cx="70" cy="-3" r="3" fill="#ff00aa">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
     </svg>
   </div>
   <div>
     <div class="hero-badge">⬢ FULL-SPECTRUM DIGITAL OPERATOR</div>
-    <h1 class="hero-title">Sistem yang <span class="flip-wrap"><span class="flip-word" id="flipWord">otomatis</span></span><br>tanpa kamu yang urus</h1>
+    <h1 class="hero-title">Sistem yang <span class="accent">otomatis</span><br>tanpa kamu yang urus</h1>
     <p class="hero-desc">Website, bot, dashboard, scraping, automation, AI, crypto tools. Gue handle engineering-nya — kamu tinggal terima hasilnya.</p>
   </div>
 </section>
@@ -676,17 +697,52 @@ const topNav = document.getElementById('topNav');
 navToggle?.addEventListener('click', () => topNav.classList.toggle('open'));
 document.querySelectorAll('#topNav a').forEach(a => a.addEventListener('click', () => topNav.classList.remove('open')));
 
-/* flip word cycler */
-const flipWords = ['otomatis', 'mandiri', 'tanpa ribet', '24/7', 'sendiri'];
-const flipEl = document.getElementById('flipWord');
-let flipIdx = 0;
-setInterval(() => {
-  flipIdx = (flipIdx + 1) % flipWords.length;
-  flipEl.style.animation = 'none';
-  void flipEl.offsetWidth;
-  flipEl.style.animation = '';
-  flipEl.textContent = flipWords[flipIdx];
-}, 3200);
+/* smooth 3D tilt on touch devices */
+(function(){
+  /* 3D tilt on skill cards — touch + mouse */
+  var cards = document.querySelectorAll('.skill-card');
+  cards.forEach(function(card){
+    function handleMove(e){
+      var rect = card.getBoundingClientRect();
+      var touch = e.touches ? e.touches[0] : e;
+      var x = (touch.clientX - rect.left) / rect.width - 0.5;
+      var y = (touch.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'translateY(-6px) perspective(600px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+      card.style.transition = 'transform 0.15s ease-out';
+    }
+    function handleLeave(){
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+    }
+    card.addEventListener('touchmove', handleMove, {passive:true});
+    card.addEventListener('touchend', handleLeave);
+    card.addEventListener('touchcancel', handleLeave);
+    card.addEventListener('mouseleave', handleLeave);
+  });
+})();
+
+/* 3D tilt on project cards — touch + mouse */
+(function(){
+  var cards = document.querySelectorAll('.project-card');
+  cards.forEach(function(card){
+    function handleMove(e){
+      var rect = card.getBoundingClientRect();
+      var touch = e.touches ? e.touches[0] : e;
+      var x = (touch.clientX - rect.left) / rect.width - 0.5;
+      var y = (touch.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'translateY(-8px) perspective(600px) rotateY(' + (x * 5) + 'deg) rotateX(' + (-y * 5) + 'deg)';
+      card.style.transition = 'transform 0.15s ease-out';
+    }
+    function handleLeave(){
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+    }
+    card.addEventListener('touchmove', handleMove, {passive:true});
+    card.addEventListener('touchend', handleLeave);
+    card.addEventListener('touchcancel', handleLeave);
+    card.addEventListener('mouseleave', handleLeave);
+  });
+})();
 
 /* force scroll to top on every load — fixes refresh-not-returning-to-top bug */
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
