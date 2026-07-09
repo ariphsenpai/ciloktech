@@ -519,10 +519,11 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
 }
 /* HP lemah (max-width + coarse pointer) -> matiin animasi background berat */
 @media (max-width: 768px) and (pointer: coarse) {
-  .wayang, .skill-marquee .track, .batik-bg, .grid-floor, .scanline {
+  .skill-marquee .track, .batik-bg, .grid-floor, .scanline {
     animation: none !important;
   }
-  .wayang { display: none !important; }
+  /* wayang tetap kelihatan di HP, tapi static (gak float) biar ringan + ada visual */
+  .wayang { animation: none !important; opacity: 0.85; }
 }
 </style>
 </head>
