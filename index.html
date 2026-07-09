@@ -881,24 +881,27 @@ window.addEventListener('load', forceTop);
   });
 })();
 
-/* neon glow on touch — ripple from touch point */
+/* neon glow on touch — ripple from every touch point (tap + drag) */
 (function(){
-  var touchActive = false;
-  document.addEventListener('touchstart', function(e){
-    touchActive = true;
-  }, {passive: true});
-  document.addEventListener('touchend', function(){
-    touchActive = false;
-  }, {passive: true});
-  document.addEventListener('touchmove', function(e){
-    if (!touchActive) return;
-    var touch = e.touches[0];
+  var lastSpawn = 0;
+  function spawn(x, y){
+    var now = Date.now();
+    if (now - lastSpawn < 16) return; // throttle ~60fps biar gak numpuk
+    lastSpawn = now;
     var el = document.createElement('div');
     el.className = 'touch-neon';
-    el.style.left = touch.clientX + 'px';
-    el.style.top = touch.clientY + 'px';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
     document.body.appendChild(el);
     el.addEventListener('animationend', function(){ el.remove(); });
+  }
+  document.addEventListener('touchstart', function(e){
+    var t = e.touches[0];
+    if (t) spawn(t.clientX, t.clientY);
+  }, {passive: true});
+  document.addEventListener('touchmove', function(e){
+    var t = e.touches[0];
+    if (t) spawn(t.clientX, t.clientY);
   }, {passive: true});
 })();
 </script>
