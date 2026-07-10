@@ -38,18 +38,7 @@ body {
   overflow-x: hidden;
 }
 /* ===== Neon batik background (thin kawung motif) — visible ===== */
-.batik-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.22;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%2300ffc8' stroke-width='1.1'%3E%3Ccircle cx='70' cy='70' r='26'/%3E%3Cellipse cx='70' cy='44' rx='11' ry='22'/%3E%3Cellipse cx='70' cy='96' rx='11' ry='22'/%3E%3Cellipse cx='44' cy='70' rx='22' ry='11'/%3E%3Cellipse cx='96' cy='70' rx='22' ry='11'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3Ccircle cx='0' cy='0' r='26'/%3E%3Cellipse cx='0' cy='-26' rx='11' ry='22'/%3E%3Cellipse cx='0' cy='26' rx='11' ry='22'/%3E%3Cellipse cx='-26' cy='0' rx='22' ry='11'/%3E%3Cellipse cx='26' cy='0' rx='22' ry='11'/%3E%3Ccircle cx='0' cy='0' r='9'/%3E%3Ccircle cx='140' cy='0' r='26'/%3E%3Cellipse cx='140' cy='-26' rx='11' ry='22'/%3E%3Cellipse cx='140' cy='26' rx='11' ry='22'/%3E%3Cellipse cx='114' cy='0' rx='22' ry='11'/%3E%3Cellipse cx='166' cy='0' rx='22' ry='11'/%3E%3Ccircle cx='140' cy='0' r='9'/%3E%3Ccircle cx='0' cy='140' r='26'/%3E%3Cellipse cx='0' cy='114' rx='11' ry='22'/%3E%3Cellipse cx='0' cy='166' rx='11' ry='22'/%3E%3Cellipse cx='-26' cy='140' rx='22' ry='11'/%3E%3Cellipse cx='26' cy='140' rx='22' ry='11'/%3E%3Ccircle cx='0' cy='140' r='9'/%3E%3Ccircle cx='140' cy='140' r='26'/%3E%3Cellipse cx='140' cy='114' rx='11' ry='22'/%3E%3Cellipse cx='140' cy='166' rx='11' ry='22'/%3E%3Cellipse cx='114' cy='140' rx='22' ry='11'/%3E%3Cellipse cx='166' cy='140' rx='22' ry='11'/%3E%3Ccircle cx='140' cy='140' r='9'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 140px 140px;
-  filter: drop-shadow(0 0 1px rgba(0,255,200,0.4));
-  animation: batikDrift 80s linear infinite;
-}
-@keyframes batikDrift { from { background-position: 0 0; } to { background-position: 140px 140px; } }
+to { background-position: 140px 140px; } }
 
 /* cyberpunk perspective grid floor — reduced for performance */
 body::before {
@@ -68,10 +57,9 @@ body::before {
   -webkit-mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.2) 40%, transparent 75%);
           mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.2) 40%, transparent 75%);
   opacity: 0.2;
-  animation: gridFloor 12s linear infinite;
 }
-@keyframes gridFloor { from { background-position: 0 0; } to { background-position: 0 64px; } }
-/* subtle scanline — reduced for performance */
+to { background-position: 0 64px; } }
+
 body::after {
   content: '';
   position: fixed;
@@ -257,16 +245,7 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 }
 
 
-
-
-
 @keyframes eyePulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
-
-
-
-
-
-
 
 
 /* ===== Sections ===== */
@@ -284,30 +263,11 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
    di HP low-end (RAM 4) -> layar blank + scroll freeze. */
 /* Smooth reveal from left — GPU-friendly */
 
-/* ===== Naga Cyberpunk ===== */
-.naga-right, .naga-left, .naga-layanan {
-  opacity: 1;
-  position: absolute;
-  z-index: 6;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-}
-.naga-layanan {
-  position: absolute;
-  right: 5%;
-  top: 14%;
-  z-index: 5;
-  opacity: 0.85;
-}
-@keyframes nagaFloat {
-  0%, 100% { transform: translateY(0) scaleX(-1); }
-  50% { transform: translateY(-14px) scaleX(-1); }
-}
+/* Naga removed */
 @media (max-width: 768px) and (pointer: coarse) {
-  .naga-right, .naga-left, .naga-layanan {
+   {
     display: none !important;
   }
-}
 .js-reveal .reveal {
   opacity: 0;
   transform: translateX(-24px);
@@ -412,28 +372,12 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 .skill-card p { color: #c8cbd4; font-size: 0.9rem; line-height: 1.55; }
 
 /* ===== Skill marquee (teks口诀 di bawah card) ===== */
-.skill-marquee {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  overflow: hidden;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-          mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.skill-marquee .track {
-  display: inline-flex;
-  gap: 24px;
-  white-space: nowrap;
-  animation: marquee 12s linear infinite;
-}
-.skill-marquee .track span {
   font-size: 0.76rem;
   color: var(--neon1);
   text-shadow: 0 0 6px rgba(0,255,200,0.45);
   letter-spacing: 1px;
   padding: 2px 0;
 }
-.skill-marquee .track span::before { content: '› '; color: var(--neon2); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes sweepNeon { from { transform: translateX(-180%); } to { transform: translateX(180%); } }
 
@@ -498,11 +442,8 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
   /* matiin animasi fixed-layer berat biar Android gak lag */
   body::before,
   body::after,
-  .batik-bg { animation: none !important; }
-  .naga-right,
-  .naga-left,
-  .naga-layanan { animation-duration: 20s !important; }
-}
+   animation: none !important; }
+  }
 @keyframes borderSpin { to { transform: rotate(360deg); } }
 /* ===== Neon glow on touch — ripple dari titik sentuhan ===== */
 body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
@@ -531,29 +472,20 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-}
 /* HP lemah (max-width + coarse pointer) -> only disable animations, NOT display */
 @media (max-width: 768px) and (pointer: coarse) {
-  .naga-right, .naga-left, .naga-layanan {
+   
+  
     animation: none !important;
-    display: block !important;
+    /* removed */
   }
-  .batik-bg {
-    animation: none !important;
-    opacity: 0.1 !important;
-  }
-  .skill-marquee .track, .scanline {
     animation: none !important;
   }
-  body::before, body::after {
-    animation: none !important;
-  }
+  body::before, body::after 
 }
 </style>
 </head>
-<body>
-
-<div class="batik-bg"></div>
+<body></div>
 
 <div class="topbar" id="topbar">
   <a href="#beranda" class="brand"><span class="logo">C</span> <span class="brand-name glitch" data-text="CILOK TECH">CILOK TECH</span></a>
@@ -566,124 +498,7 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
 </div>
 
 <section class="hero container" id="beranda">
-    <div class="naga naga-right" aria-hidden="true" style="position:absolute;top:6%;right:0%;z-index:6;pointer-events:none;filter:drop-shadow(0 0 18px rgba(0,255,200,0.4));animation:nagaFloat 14s ease-in-out infinite;transform:scaleX(-1);">
-    <svg viewBox="0 0 300 420" width="100" height="140" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="ng2" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <g filter="url(#ng2)" fill="none" stroke="#00ffc8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Aura -->
-        <circle cx="150" cy="190" r="95" stroke="#ff00aa" stroke-width="0.4" opacity="0.15">
-          <animate attributeName="r" values="88;100;88" dur="4.5s" repeatCount="indefinite"/>
-        </circle>
-        <!-- HEAD — Dragon head, more aggressive -->
-        <path d="M150 15 Q120 5 90 25 Q60 45 48 75 Q38 105 42 135 Q46 158 65 172 Q85 185 115 190" fill="#0a0d16" stroke-width="1.8"/>
-        <path d="M48 75 Q38 85 33 100" fill="#0a0d16"/>
-        <!-- Horns — bigger, forked -->
-        <path d="M90 25 L65 -5 L80 15" stroke-width="2"/>
-        <path d="M110 20 L105 -10 L120 10" stroke-width="2"/>
-        <circle cx="65" cy="-6" r="3" fill="#00ffc8" stroke="none"/>
-        <circle cx="105" cy="-11" r="3" fill="#ff00aa" stroke="none"/>
-        <!-- Jaw — open, more menacing -->
-        <path d="M33 100 Q28 130 38 160 Q50 178 65 172 Q48 165 42 135 Q38 105 48 75" fill="#080b14" stroke-width="1.4"/>
-        <!-- Eyes — cyan/ice blue -->
-        <ellipse cx="72" cy="65" rx="9" ry="6.5" fill="#00ffc8" stroke="none"/>
-        <ellipse cx="72" cy="65" rx="4.5" ry="6.5" fill="#00a8ff" stroke="none"/>
-        <ellipse cx="72" cy="65" rx="1.5" ry="5" fill="#fff" stroke="none"/>
-        <!-- Teeth — bigger, sharper -->
-        <path d="M38 115 L35 125 M42 120 L40 132 M48 126 L48 138 M56 132 L58 146 M64 138 L67 154" stroke="#ff00aa" stroke-width="1.4"/>
-        <!-- Neck — thicker -->
-        <path d="M65 172 Q75 210 95 250 Q115 280 130 310" fill="none" stroke-width="2.2"/>
-        <!-- Body — muscular serpentine -->
-        <path d="M130 310 Q150 340 195 330 Q240 320 255 285 Q270 250 240 240 Q205 230 180 255 Q155 280 170 305 Q185 330 220 318" fill="#080b14" stroke-width="2.2"/>
-        <!-- Cyber scales -->
-        <path d="M180 255 Q190 250 200 255" stroke-width="1" opacity="0.5"/>
-        <path d="M195 268 Q205 263 215 268" stroke-width="1" opacity="0.5"/>
-        <path d="M210 282 Q220 277 230 282" stroke-width="1" opacity="0.5"/>
-        <path d="M225 296 Q235 291 245 296" stroke-width="1" opacity="0.5"/>
-        <!-- Tail — with barb -->
-        <path d="M255 285 Q275 280 288 265 Q295 255 285 248" stroke-width="1.8"/>
-        <path d="M288 265 L296 255 L290 268" fill="#00ffc8" stroke="none" opacity="0.8"/>
-        <!-- Wings — larger, more detailed -->
-        <path d="M95 250 Q40 180 0 200 Q20 225 70 250 Q45 210 10 225 Q30 245 80 260" stroke-width="2" opacity="0.7"/>
-        <path d="M70 250 Q25 190 -5 210 Q15 235 60 260" stroke-width="1.2" opacity="0.5"/>
-        <!-- Wing membrane lines -->
-        <path d="M80 255 Q35 195 5 215" stroke-width="0.8" opacity="0.3"/>
-        <path d="M90 260 Q45 200 10 220" stroke-width="0.8" opacity="0.3"/>
-        <path d="M100 265 Q55 205 20 225" stroke-width="0.8" opacity="0.3"/>
-        <!-- Claws — bigger -->
-        <path d="M95 250 Q80 275 85 295" stroke-width="2"/>
-        <path d="M85 295 L78 302 M85 295 L87 305 M85 295 L93 298" stroke-width="1.2"/>
-        <path d="M130 310 Q118 335 122 355" stroke-width="2"/>
-        <path d="M122 355 L115 362 M122 355 L124 364 M122 355 L130 358" stroke-width="1.2"/>
-        <!-- Fire breath — bigger flames -->
-        <path d="M33 95 Q15 88 -2 100 Q5 112 22 106" stroke="#ff6600" stroke-width="2" opacity="0.6"/>
-        <path d="M30 102 Q10 98 -5 112 Q3 122 20 117" stroke="#ffdd44" stroke-width="1.4" opacity="0.5"/>
-        <path d="M28 108 Q8 105 -8 118 Q0 128 16 124" stroke="#ff4400" stroke-width="1" opacity="0.3"/>
-      </g>
-    </svg>
-  </div>
-  <div class="naga naga-left" aria-hidden="true" style="position:absolute;top:6%;left:0%;z-index:6;pointer-events:none;filter:drop-shadow(0 0 18px rgba(255,0,170,0.4));animation:nagaFloat 12s ease-in-out infinite;">
-    <svg viewBox="0 0 300 400" width="100" height="133" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="ng1" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <g filter="url(#ng1)" fill="none" stroke="#ff00aa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Aura -->
-        <circle cx="150" cy="180" r="90" stroke="#00ffc8" stroke-width="0.4" opacity="0.15">
-          <animate attributeName="r" values="85;95;85" dur="4s" repeatCount="indefinite"/>
-        </circle>
-        <!-- HEAD — Dragon head profile -->
-        <path d="M160 20 Q130 10 100 30 Q70 50 60 80 Q50 110 55 140 Q60 165 80 180 Q100 195 130 200" fill="#0a0d16" stroke-width="1.8"/>
-        <path d="M60 80 Q50 90 45 105" fill="#0a0d16"/>
-        <!-- Horns -->
-        <path d="M100 30 L85 5 L95 15" stroke-width="1.8"/>
-        <path d="M120 25 L115 0 L130 15" stroke-width="1.8"/>
-        <circle cx="85" cy="4" r="2.5" fill="#ff00aa" stroke="none"/>
-        <circle cx="115" cy="-1" r="2.5" fill="#00ffc8" stroke="none"/>
-        <!-- Jaw -->
-        <path d="M45 105 Q40 130 50 160 Q60 180 80 180 Q60 170 55 140 Q50 110 60 80" fill="#080b14" stroke-width="1.4"/>
-        <!-- Eyes — glowing yellow/orange -->
-        <ellipse cx="80" cy="70" rx="8" ry="6" fill="#ffdd44" stroke="none"/>
-        <ellipse cx="80" cy="70" rx="4" ry="6" fill="#ff00aa" stroke="none"/>
-        <ellipse cx="80" cy="70" rx="1.5" ry="5" fill="#fff" stroke="none"/>
-        <!-- Teeth -->
-        <path d="M50 120 L48 128 M55 125 L54 134 M62 130 L62 140 M70 135 L72 146" stroke="#00ffc8" stroke-width="1.2"/>
-        <!-- Neck -->
-        <path d="M80 180 Q90 220 110 260 Q130 290 140 320" fill="none" stroke-width="2"/>
-        <!-- Body — serpentine -->
-        <path d="M140 320 Q160 350 200 340 Q240 330 250 300 Q260 270 230 260 Q200 250 180 270 Q160 290 170 310 Q180 330 210 320" fill="#080b14" stroke-width="2"/>
-        <!-- Cyber scales pattern -->
-        <path d="M180 270 Q190 265 200 270" stroke-width="1" opacity="0.5"/>
-        <path d="M190 280 Q200 275 210 280" stroke-width="1" opacity="0.5"/>
-        <path d="M200 290 Q210 285 220 290" stroke-width="1" opacity="0.5"/>
-        <!-- Tail -->
-        <path d="M250 300 Q265 295 275 280 Q280 270 270 265" stroke-width="1.6"/>
-        <path d="M275 280 L282 272 L278 285" fill="#ff00aa" stroke="none" opacity="0.8"/>
-        <!-- Wings — membran cyberpunk -->
-        <path d="M110 260 Q60 200 20 220 Q40 240 80 260 Q60 220 30 230 Q50 250 90 270" stroke-width="1.8" opacity="0.7"/>
-        <path d="M80 260 Q40 210 10 230 Q30 250 70 270" stroke-width="1" opacity="0.4"/>
-        <!-- Wing membrane lines -->
-        <path d="M90 265 Q50 215 15 228" stroke-width="0.8" opacity="0.3"/>
-        <path d="M100 270 Q60 220 25 235" stroke-width="0.8" opacity="0.3"/>
-        <!-- Claws -->
-        <path d="M110 260 Q100 280 105 295" stroke-width="1.6"/>
-        <path d="M105 295 L100 300 M105 295 L107 302 M105 295 L112 298" stroke-width="1"/>
-        <path d="M140 320 Q130 340 135 355" stroke-width="1.6"/>
-        <path d="M135 355 L130 360 M135 355 L137 362 M135 355 L142 358" stroke-width="1"/>
-        <!-- Fire breath -->
-        <path d="M45 110 Q30 105 15 115 Q20 125 35 120" stroke="#ff6600" stroke-width="1.5" opacity="0.6"/>
-        <path d="M42 115 Q25 112 12 122 Q16 130 32 126" stroke="#ffdd44" stroke-width="1" opacity="0.4"/>
-      </g>
-    </svg>
-  </div>
-  <div>
+    <div>
     <div class="hero-badge">⬢ FULL-SPECTRUM DIGITAL OPERATOR</div>
     <h1 class="hero-title">Sistem yang <span class="flip-wrap"><span class="flip-word" id="flipWord">otomatis</span></span><br>tanpa kamu yang urus</h1>
     <p class="hero-desc">Website, bot, dashboard, scraping, automation, AI, crypto tools. Gue handle engineering-nya — kamu tinggal terima hasilnya.</p>
@@ -691,33 +506,6 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
 </section>
 
 <section class="section" id="layanan">
-  <div class="naga naga-layanan" aria-hidden="true" style="position:absolute;right:5%;top:14%;z-index:5;pointer-events:none;opacity:0.85;transform:scaleX(-1);animation:nagaFloat 10s ease-in-out infinite;">
-    <svg viewBox="0 0 300 420" width="60" height="84" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#00ffc8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8">
-        <!-- Horns -->
-        <path d="M90 25 L65 -5 L80 15" stroke-width="2"/>
-        <path d="M110 20 L105 -10 L120 10" stroke-width="2"/>
-        <circle cx="65" cy="-6" r="3" fill="#00ffc8" stroke="none"/>
-        <circle cx="105" cy="-11" r="3" fill="#ff00aa" stroke="none"/>
-        <!-- Head -->
-        <path d="M150 15 Q120 5 90 25 Q60 45 48 75 Q38 105 42 135 Q46 158 65 172 Q85 185 115 190" fill="#0a0d16" stroke-width="1.8"/>
-        <!-- Eye -->
-        <ellipse cx="72" cy="65" rx="9" ry="6.5" fill="#00ffc8" stroke="none"/>
-        <ellipse cx="72" cy="65" rx="4.5" ry="6.5" fill="#00a8ff" stroke="none"/>
-        <!-- Teeth -->
-        <path d="M38 115 L35 125 M42 120 L40 132 M48 126 L48 138 M56 132 L58 146" stroke="#ff00aa" stroke-width="1.4"/>
-        <!-- Body -->
-        <path d="M130 310 Q150 340 195 330 Q240 320 255 285 Q270 250 240 240 Q205 230 180 255 Q155 280 170 305" fill="#080b14" stroke-width="2.2"/>
-        <!-- Wing -->
-        <path d="M95 250 Q40 180 0 200 Q20 225 70 250" stroke-width="2" opacity="0.7"/>
-        <!-- Claws -->
-        <circle cx="85" cy="295" r="5" fill="#0a0d16" stroke="#00ffc8"/>
-        <circle cx="122" cy="355" r="5" fill="#0a0d16" stroke="#ff00aa"/>
-        <!-- Tail barb -->
-        <path d="M288 265 L296 255 L290 268" fill="#00ffc8" stroke="none" opacity="0.8"/>
-      </g>
-    </svg>
-  </div>
   <div class="container">
     <div class="section-header reveal">
       <span class="section-badge">// Layanan</span>
@@ -725,14 +513,14 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
       <p class="section-desc">Pilih sesuai kebutuhan, gue urus implementasi sampai jalan.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card reveal"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p><div class="skill-marquee"><div class="track"><span>WEB APP</span><span>STATIS</span><span>DINAMIS</span><span>DEPLOY VPS</span><span>RESPONSIVE</span><span>SSR</span><span>WEB APP</span><span>STATIS</span><span>DINAMIS</span><span>DEPLOY VPS</span><span>RESPONSIVE</span><span>SSR</span></div></div></div>
-      <div class="skill-card reveal"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p><div class="skill-marquee"><div class="track"><span>BOT</span><span>PYTHON</span><span>NODE.JS</span><span>24/7</span><span>ALERT</span><span>AUTO-CLAIM</span><span>BOT</span><span>PYTHON</span><span>NODE.JS</span><span>24/7</span><span>ALERT</span><span>AUTO-CLAIM</span></div></div></div>
-      <div class="skill-card reveal"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p><div class="skill-marquee"><div class="track"><span>REALTIME</span><span>CHARTS</span><span>ALERTS</span><span>LOGS</span><span>METRICS</span><span>LIVE API</span><span>REALTIME</span><span>CHARTS</span><span>ALERTS</span><span>LOGS</span><span>METRICS</span><span>LIVE API</span></div></div></div>
-      <div class="skill-card reveal"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p><div class="skill-marquee"><div class="track"><span>TRACKING</span><span>API</span><span>PARSE</span><span>EXPORT</span><span>WATCH</span><span>SCRAPE</span><span>TRACKING</span><span>API</span><span>PARSE</span><span>EXPORT</span><span>WATCH</span><span>SCRAPE</span></div></div></div>
-      <div class="skill-card reveal"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p><div class="skill-marquee"><div class="track"><span>CRON</span><span>BATCH</span><span>PLAYWRIGHT</span><span>PIPELINE</span><span>MASS</span><span>SCHEDULER</span><span>CRON</span><span>BATCH</span><span>PLAYWRIGHT</span><span>PIPELINE</span><span>MASS</span><span>SCHEDULER</span></div></div></div>
-      <div class="skill-card reveal"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p><div class="skill-marquee"><div class="track"><span>RAG</span><span>AGENT</span><span>LLM</span><span>SUMMARIZER</span><span>RETRIEVAL</span><span>PRIVATE</span><span>RAG</span><span>AGENT</span><span>LLM</span><span>SUMMARIZER</span><span>RETRIEVAL</span><span>PRIVATE</span></div></div></div>
-      <div class="skill-card reveal"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p><div class="skill-marquee"><div class="track"><span>MULTI-CHAIN</span><span>DEFI</span><span>SCANNER</span><span>AIRDROP</span><span>WALLET</span><span>WEB3</span><span>MULTI-CHAIN</span><span>DEFI</span><span>SCANNER</span><span>AIRDROP</span><span>WALLET</span><span>WEB3</span></div></div></div>
-      <div class="skill-card reveal skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p><div class="skill-marquee"><div class="track"><span>HEADLESS</span><span>DESKTOP</span><span>OAUTH</span><span>SESSION</span><span>QA</span><span>UNDETECTED</span><span>HEADLESS</span><span>DESKTOP</span><span>OAUTH</span><span>SESSION</span><span>QA</span><span>UNDETECTED</span></div></div></div>
+      <div class="skill-card reveal"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p></div></div>
+      <div class="skill-card reveal"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p></div></div>
+      <div class="skill-card reveal"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p></div></div>
+      <div class="skill-card reveal"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p></div></div>
+      <div class="skill-card reveal"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p></div></div>
+      <div class="skill-card reveal"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p></div></div>
+      <div class="skill-card reveal"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p></div></div>
+      <div class="skill-card reveal skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p></div></div>
     </div>
   </div>
 </section>
@@ -804,8 +592,7 @@ setInterval(() => {
     flipEl.innerHTML = '24/<span class="num7">7</span>';
   } else {
     flipEl.innerHTML = w;
-  }
-}, 3200);
+  }, 3200);
 
 /* smooth 3D tilt on touch devices */
 (function(){
@@ -881,14 +668,12 @@ setInterval(() => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           io.unobserve(entry.target);
-        }
-      });
+  });
     }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
     reveals.forEach(function(el){ io.observe(el); });
   } else {
     reveals.forEach(function(el){ el.classList.add('visible'); });
-  }
-})();
+  })();
 
 /* force scroll to top on every load — fixes refresh-not-returning-to-top bug */
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
