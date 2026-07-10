@@ -38,37 +38,52 @@ body {
   overflow-x: hidden;
 }
 /* ===== Neon batik background (thin kawung motif) — visible ===== */
-to { background-position: 140px 140px; } }
+.batik-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%2300ffc8' stroke-width='1.1'%3E%3Ccircle cx='70' cy='70' r='26'/%3E%3Cellipse cx='70' cy='44' rx='11' ry='22'/%3E%3Cellipse cx='70' cy='96' rx='11' ry='22'/%3E%3Cellipse cx='44' cy='70' rx='22' ry='11'/%3E%3Cellipse cx='96' cy='70' rx='22' ry='11'/%3E%3Ccircle cx='70' cy='70' r='9'/%3E%3Ccircle cx='0' cy='0' r='26'/%3E%3Cellipse cx='0' cy='-26' rx='11' ry='22'/%3E%3Cellipse cx='0' cy='26' rx='11' ry='22'/%3E%3Cellipse cx='-26' cy='0' rx='22' ry='11'/%3E%3Cellipse cx='26' cy='0' rx='22' ry='11'/%3E%3Ccircle cx='0' cy='0' r='9'/%3E%3Ccircle cx='140' cy='0' r='26'/%3E%3Cellipse cx='140' cy='-26' rx='11' ry='22'/%3E%3Cellipse cx='140' cy='26' rx='11' ry='22'/%3E%3Cellipse cx='114' cy='0' rx='22' ry='11'/%3E%3Cellipse cx='166' cy='0' rx='22' ry='11'/%3E%3Ccircle cx='140' cy='0' r='9'/%3E%3Ccircle cx='0' cy='140' r='26'/%3E%3Cellipse cx='0' cy='114' rx='11' ry='22'/%3E%3Cellipse cx='0' cy='166' rx='11' ry='22'/%3E%3Cellipse cx='-26' cy='140' rx='22' ry='11'/%3E%3Cellipse cx='26' cy='140' rx='22' ry='11'/%3E%3Ccircle cx='0' cy='140' r='9'/%3E%3Ccircle cx='140' cy='140' r='26'/%3E%3Cellipse cx='140' cy='114' rx='11' ry='22'/%3E%3Cellipse cx='140' cy='166' rx='11' ry='22'/%3E%3Cellipse cx='114' cy='140' rx='22' ry='11'/%3E%3Cellipse cx='166' cy='140' rx='22' ry='11'/%3E%3Ccircle cx='140' cy='140' r='9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  filter: drop-shadow(0 0 1px rgba(0,255,200,0.4));
+  animation: batikDrift 80s linear infinite;
+}
+@keyframes batikDrift { from { background-position: 0 0; } to { background-position: 140px 140px; } }
 
-/* cyberpunk perspective grid floor — reduced for performance */
+/* cyberpunk perspective grid floor */
 body::before {
   content: '';
   position: fixed;
-  left: -50%; right: -50%; bottom: -40%;
-  height: 70vh;
+  left: -50%; right: -50%; bottom: -30%;
+  height: 80vh;
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(0,255,200,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,168,255,0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(rgba(0,255,200,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,0.14) 1px, transparent 1px);
+  background-size: 48px 48px;
   transform: perspective(420px) rotateX(70deg);
   transform-origin: bottom center;
-  -webkit-mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.2) 40%, transparent 75%);
-          mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.2) 40%, transparent 75%);
-  opacity: 0.2;
+  -webkit-mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.25) 45%, transparent 80%);
+          mask: linear-gradient(to top, #000 0%, rgba(0,0,0,0.25) 45%, transparent 80%);
+  opacity: 0.3;
+  animation: gridFloor 7s linear infinite;
 }
-to { background-position: 0 64px; } }
-
+@keyframes gridFloor { from { background-position: 0 0; } to { background-position: 0 48px; } }
+/* neon scanline overlay */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 4px);
-  opacity: 0.2;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px);
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  animation: scanFlicker 5s steps(60) infinite;
 }
+@keyframes scanFlicker { 0%,100% { opacity:.34 } 48% { opacity:.42 } 50% { opacity:.3 } 52% { opacity:.44 } }
 a { color: var(--neon3); text-decoration: none; }
 a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -244,10 +259,26 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
   margin-left: auto; margin-right: auto;
 }
 
+/* ===== Flying robot (hero) — terbang kanan-kiri + zoom in/out ===== */
+
 
 @keyframes eyePulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
 
+/* ===== Flying robot 2 (hero kiri) — mirror animation ===== */
 
+
+/* ===== Robot di atas section Layanan ===== */
+ {
+  position: absolute;
+  right: 5%; top: 14%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.95;
+  transform: translateZ(0);
+  filter: drop-shadow(0 0 18px rgba(255,0,170,0.7));
+  /* robot animation removed */
+  will-change: transform;
+}
 /* ===== Sections ===== */
 .section { 
   padding: 70px 0; 
@@ -261,24 +292,17 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
    (ditambahin JS). Kalau JS gagal, section tetap kelihatan.
    NOTE: jangan pakai will-change di banyak elemen — bikin GPU layer meledak
    di HP low-end (RAM 4) -> layar blank + scroll freeze. */
-/* Smooth reveal from left — GPU-friendly */
-
-/* Naga removed */
-@media (max-width: 768px) and (pointer: coarse) {
-   {
-    display: none !important;
-  }
 .js-reveal .reveal {
   opacity: 0;
-  transform: translateX(-24px);
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 .js-reveal .reveal.visible {
   opacity: 1;
   transform: translateX(0);
 }
-/* Per-grid stagger — faster */
-.js-reveal .reveal { transition-delay: calc(var(--d, 0) * 0.06s); }
+/* per-grid stagger via --d (diset JS dari index dlm grid) */
+.js-reveal .reveal { transition-delay: calc(var(--d, 0) * 0.12s); }
 .section-badge {
   display: inline-block;
   padding: 8px 16px;
@@ -372,12 +396,28 @@ a:hover { color: var(--neon1); text-shadow: 0 0 8px var(--neon1); }
 .skill-card p { color: #c8cbd4; font-size: 0.9rem; line-height: 1.55; }
 
 /* ===== Skill marquee (teks口诀 di bawah card) ===== */
+.skill-marquee {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.skill-marquee .track {
+  display: inline-flex;
+  gap: 24px;
+  white-space: nowrap;
+  animation: marquee 12s linear infinite;
+}
+.skill-marquee .track span {
   font-size: 0.76rem;
   color: var(--neon1);
   text-shadow: 0 0 6px rgba(0,255,200,0.45);
   letter-spacing: 1px;
   padding: 2px 0;
 }
+.skill-marquee .track span::before { content: '› '; color: var(--neon2); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes sweepNeon { from { transform: translateX(-180%); } to { transform: translateX(180%); } }
 
@@ -442,8 +482,11 @@ footer { border-top: 1px solid var(--border); padding: 16px 0; color: #5a5f68; f
   /* matiin animasi fixed-layer berat biar Android gak lag */
   body::before,
   body::after,
-   animation: none !important; }
-  }
+  .batik-bg { animation: none !important; }
+  
+  
+   { animation-duration: 20s !important; }
+}
 @keyframes borderSpin { to { transform: rotate(360deg); } }
 /* ===== Neon glow on touch — ripple dari titik sentuhan ===== */
 body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
@@ -472,20 +515,19 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-/* HP lemah (max-width + coarse pointer) -> only disable animations, NOT display */
+}
+/* HP lemah (max-width + coarse pointer) -> matiin animasi background berat */
 @media (max-width: 768px) and (pointer: coarse) {
-   
-  
-    animation: none !important;
-    /* removed */
-  }
+    .skill-marquee .track, .batik-bg, .grid-floor, .scanline {
     animation: none !important;
   }
-  body::before, body::after 
+   /*  removed */ }
 }
 </style>
 </head>
-<body></div>
+<body>
+
+<div class="batik-bg"></div>
 
 <div class="topbar" id="topbar">
   <a href="#beranda" class="brand"><span class="logo">C</span> <span class="brand-name glitch" data-text="CILOK TECH">CILOK TECH</span></a>
@@ -513,14 +555,14 @@ body, .skill-card, .project-card, .contact-icon { touch-action: manipulation; }
       <p class="section-desc">Pilih sesuai kebutuhan, gue urus implementasi sampai jalan.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card reveal"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p></div></div>
-      <div class="skill-card reveal"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p></div></div>
-      <div class="skill-card reveal"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p></div></div>
-      <div class="skill-card reveal"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p></div></div>
-      <div class="skill-card reveal"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p></div></div>
-      <div class="skill-card reveal"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p></div></div>
-      <div class="skill-card reveal"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p></div></div>
-      <div class="skill-card reveal skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p></div></div>
+      <div class="skill-card reveal"><h3>🌐 Website / Web App</h3><p>Landing page, company profile, admin panel, dashboard. HTML/React/Next.js + Node/Python.</p><div class="skill-marquee"><div class="track"><span>WEB APP</span><span>STATIS</span><span>DINAMIS</span><span>DEPLOY VPS</span><span>RESPONSIVE</span><span>SSR</span><span>WEB APP</span><span>STATIS</span><span>DINAMIS</span><span>DEPLOY VPS</span><span>RESPONSIVE</span><span>SSR</span></div></div></div>
+      <div class="skill-card reveal"><h3>🤖 Telegram Bot</h3><p>Notifikasi, auto-claim, scanner, voting, automation 24/7.</p><div class="skill-marquee"><div class="track"><span>BOT</span><span>PYTHON</span><span>NODE.JS</span><span>24/7</span><span>ALERT</span><span>AUTO-CLAIM</span><span>BOT</span><span>PYTHON</span><span>NODE.JS</span><span>24/7</span><span>ALERT</span><span>AUTO-CLAIM</span></div></div></div>
+      <div class="skill-card reveal"><h3>📊 Dashboard</h3><p>Real-time monitoring server/provider/log dengan auto-refresh.</p><div class="skill-marquee"><div class="track"><span>REALTIME</span><span>CHARTS</span><span>ALERTS</span><span>LOGS</span><span>METRICS</span><span>LIVE API</span><span>REALTIME</span><span>CHARTS</span><span>ALERTS</span><span>LOGS</span><span>METRICS</span><span>LIVE API</span></div></div></div>
+      <div class="skill-card reveal"><h3>🕷 Scraping & Report</h3><p>Ambil data dari web/API, olah jadi report atau file siap pakai.</p><div class="skill-marquee"><div class="track"><span>TRACKING</span><span>API</span><span>PARSE</span><span>EXPORT</span><span>WATCH</span><span>SCRAPE</span><span>TRACKING</span><span>API</span><span>PARSE</span><span>EXPORT</span><span>WATCH</span><span>SCRAPE</span></div></div></div>
+      <div class="skill-card reveal"><h3>⚡ Automation</h3><p>Bot massal, batch processing, cron pipelines.</p><div class="skill-marquee"><div class="track"><span>CRON</span><span>BATCH</span><span>PLAYWRIGHT</span><span>PIPELINE</span><span>MASS</span><span>SCHEDULER</span><span>CRON</span><span>BATCH</span><span>PLAYWRIGHT</span><span>PIPELINE</span><span>MASS</span><span>SCHEDULER</span></div></div></div>
+      <div class="skill-card reveal"><h3>🧠 AI / Workflow</h3><p>Agent AI, RAG, workflow LLM, retrieval.</p><div class="skill-marquee"><div class="track"><span>RAG</span><span>AGENT</span><span>LLM</span><span>SUMMARIZER</span><span>RETRIEVAL</span><span>PRIVATE</span><span>RAG</span><span>AGENT</span><span>LLM</span><span>SUMMARIZER</span><span>RETRIEVAL</span><span>PRIVATE</span></div></div></div>
+      <div class="skill-card reveal"><h3>⛓ Crypto Tools</h3><p>Wallet generation, DeFi, token scanner, airdrop tools.</p><div class="skill-marquee"><div class="track"><span>MULTI-CHAIN</span><span>DEFI</span><span>SCANNER</span><span>AIRDROP</span><span>WALLET</span><span>WEB3</span><span>MULTI-CHAIN</span><span>DEFI</span><span>SCANNER</span><span>AIRDROP</span><span>WALLET</span><span>WEB3</span></div></div></div>
+      <div class="skill-card"><h3>🧩 Browser Automation</h3><p>Playwright, undetected headless, session automation, OAuth helpers.</p><div class="skill-marquee"><div class="track"><span>HEADLESS</span><span>DESKTOP</span><span>OAUTH</span><span>SESSION</span><span>QA</span><span>UNDETECTED</span><span>HEADLESS</span><span>DESKTOP</span><span>OAUTH</span><span>SESSION</span><span>QA</span><span>UNDETECTED</span></div></div></div>
     </div>
   </div>
 </section>
@@ -592,7 +634,8 @@ setInterval(() => {
     flipEl.innerHTML = '24/<span class="num7">7</span>';
   } else {
     flipEl.innerHTML = w;
-  }, 3200);
+  }
+}, 3200);
 
 /* smooth 3D tilt on touch devices */
 (function(){
@@ -668,12 +711,14 @@ setInterval(() => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           io.unobserve(entry.target);
-  });
+        }
+      });
     }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
     reveals.forEach(function(el){ io.observe(el); });
   } else {
     reveals.forEach(function(el){ el.classList.add('visible'); });
-  })();
+  }
+})();
 
 /* force scroll to top on every load — fixes refresh-not-returning-to-top bug */
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
